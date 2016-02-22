@@ -19,6 +19,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+   /* // aert
+    awer
+    awer
+            */
     private Sensor mGyroSensor;
     private Sensor mLineerAccSensor;
     private TextView tv;
