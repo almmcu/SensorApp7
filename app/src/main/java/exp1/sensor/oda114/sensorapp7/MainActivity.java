@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     long dif = 0;
     int a = 0;
     int mapIndex = 0;
-
+    String instanceChange = "";
     double mesafe = 0;
     Button btn ;
     int cal = 0 ;
@@ -102,10 +102,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (b< 0) b = -b;
             a += ( b / 1000) ;*/
 
-                tv.setText("Angular X speed level is: " + "" + angularXSpeed + "\n\n"
-                                + "Angular Y speed level is: " + "" + angularYSpeed + "\n\n"
+                tv.setText("Angular X speed level is: " + "" + angularXSpeed + "\n"
+                                + "Angular Y speed level is: " + "" + angularYSpeed + "\n"
                                 + "Angular Z speed level is: " + "" + angularZSpeed
-                                + "\n\n"
+                                + "\n"
 /*
                             "Angular X speed level is: " + "" + angularXMaxSpeed + "\n\n"
                             // 0.033320963 -
@@ -129,10 +129,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if (dif >= 1000)
                 {
                     angularXMaxSpeedOneSec /= a;
-                    tv2.setText("\n\n\n\n" + angularXMaxSpeedOneSec  + "\n" +
-                            "\n" +
-                            " mesafe\n" +
-                            (0.5*angularXMaxSpeedOneSec *angularXMaxSpeedOneSec)*100 );
+                    instanceChange += "ivme->" + angularXMaxSpeedOneSec;
+                    instanceChange += " mesafe ->" + (0.5*angularXMaxSpeedOneSec *angularXMaxSpeedOneSec)*100 +"\n" ;
+                    tv2.setText(instanceChange);
                     dif = 0 ;
                     double tempp = (0.5*angularXMaxSpeedOneSec *angularXMaxSpeedOneSec);
                     if (tempp < 0) tempp = - tempp;
@@ -176,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else {
             btn.setText("Basla");
             sMgr.unregisterListener((SensorEventListener) this);
-            tv2.setText("\n\nSon mesafe   " +mesafe
+            tv2.setText("\nSon mesafe   " +mesafe
                     +"\n Integer Value:  " + (int)mesafe);
             int a1 = (int)mesafe;
 
@@ -185,14 +184,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             System.out.println(accValueMap);
             String mesafeler = "";
             for (i = 0; i < saniyelikMesurement.size() ; i++) {
-                mesafeler += ((i + 1) + ". saniye  "+saniyelikMesurement.get(i++) + "  " + saniyelikMesurement.get(i) + "\n");
+                mesafeler += (((i + 1)+1)/2 + ". saniye   msf: "+saniyelikMesurement.get(i++) + "  " + saniyelikMesurement.get(i) + "\n");
             }
             txtSaniyeilikMesafe.setText(mesafeler);
+            txtSaniyeilikMesafe.setMovementMethod(new ScrollingMovementMethod());
             saniyelikMesurement.clear();
             i = 1;
             mesafeler = "\n";
             for (ArrayList<Double> accList:accValueMap) {
-                mesafeler += i +". saniye:\n ";
+                mesafeler += i +". saniye:\n";
                 for (double accValalue:accList
                         ) {
 
@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             txtSaniyelikIvme.setText(mesafeler);
             accValueMap.clear();
             saniyelikMesafe.clear();
+            instanceChange="";
             mesafe = 0;
             mapIndex = 0;
 
